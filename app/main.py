@@ -2,14 +2,11 @@ from prometheus_client import Counter, make_asgi_app
 import random,time
 from fastapi import FastAPI
 
-app = FastAPI()
+# Create app
+app = FastAPI(debug=False)
 
-def make_metrics_app():
-  registry = CollectorRegistry()
-  multiprocess.MultiProcessCollector(registry)
-  return make_asgi_app(registry=registry)
-
-metrics_app = make_metrics_app()
+# Add prometheus asgi middleware to route /metrics requests
+metrics_app = make_asgi_app()
 app.mount("/metrics", metrics_app)
 
 @app.get("/health-check")

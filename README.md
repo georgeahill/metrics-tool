@@ -9,13 +9,16 @@ GET /metrics
 prometheus
 
 POST /metric-instance
+```json
 {
   "source": "raspi",
   "ip": 123.123.123.123
 }
+```
 
 ## Usage
 
 Log a bunch of information. Send it to Prometheus 
 
-## On start, pull from GitHub and re-build :)
+<!-- On start, we pull artifact from GitHub, re-run :) -->
+<!-- Restart periodically? -->
