@@ -14,9 +14,9 @@ def healthcheck():
   return {"status": "Happy :)"}
 
 @app.post("/metric-instance")
-async def create_metric(request: Request):
+def create_metric(request: Request):
   body = request.json()
-  
+
   request_metric = Counter("metrictool_request", body.keys())
 
   request_metric.labels(**body)
