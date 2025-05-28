@@ -1,6 +1,6 @@
 from prometheus_client import Counter, make_asgi_app
 import random,time
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 # Create app
 app = FastAPI(debug=False)
@@ -14,7 +14,9 @@ def healthcheck():
   return {"status": "Happy :)"}
 
 @app.post("/metric-instance")
-def create_metric(body):
+async def create_metric(request: Request):
+  body = request.json()
+  
   request_metric = Counter("metrictool_request", body.keys())
 
   request_metric.labels(**body)
