@@ -15,24 +15,8 @@ def healthcheck():
 
 @app.post("/metric-instance")
 def create_metric(body):
-  request_metric = Counter("metrictool_request")
+  request_metric = Counter("metrictool_request", body.keys())
 
-  request_metric.labels()
+  request_metric.labels(**body)
 
   request_metric.increment()
-  
-
-# metric = Counter('metric_request_total', 'Decsription')
-
-# def generate_metric():
-#   return {"a": 1, "b": "aaa"}
-
-# if __name__ == '__main__':
-#   start_http_server(8000)
-
-#   while True:
-#     m = generate_metric()
-#     print(f'metric is {m}')
-#     metric.increment(m)
-
-#     time.sleep(30)
