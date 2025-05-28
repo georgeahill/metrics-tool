@@ -1,5 +1,6 @@
+import logging
+
 from prometheus_client import Counter, make_asgi_app
-import random,time
 from fastapi import FastAPI, Request
 
 # Create app
