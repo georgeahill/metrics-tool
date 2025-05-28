@@ -13,11 +13,13 @@ app.mount("/metrics", metrics_app)
 def healthcheck():
   return {"status": "Happy :)"}
 
+request_metric = Counter("metrictool_request", ["ip_address", "caller"])
+
 @app.post("/metric-instance")
 async def create_metric(request: Request):
   body = await request.json()
 
-  request_metric = Counter("metrictool_request", body.keys())
+  logging.info(body)
 
   request_metric.labels(**body)
 

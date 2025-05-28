@@ -5,7 +5,7 @@ IP_ADDRESS=$(curl -s -S https://ipinfo.io/ip)
 
 echo "Logging from $IP_ADDRESS"
 
-REQ_BODY=$(jq -n --arg ip "$IP_ADDRESS" --arg service "raspi-ping" '{ip_addresss: $ip, caller: $service}')
+REQ_BODY=$(jq -n --arg ip "$IP_ADDRESS" --arg service "raspi-ping" '{ip_address: $ip, caller: $service}')
 
 set +e
 echo $(curl -s -S -X POST -H "Content-Type: application/json" "http://localhost:8000/metric-instance" --data-raw "$REQ_BODY")
