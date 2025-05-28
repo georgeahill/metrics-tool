@@ -1,7 +1,6 @@
 import logging
-import multiprocessing
 
-from prometheus_client import Counter, make_asgi_app, CollectorRegistry
+from prometheus_client import Counter, make_asgi_app, CollectorRegistry, multiprocess
 from fastapi import FastAPI, Request
 
 # Create app
@@ -10,7 +9,7 @@ app = FastAPI(debug=False)
 # Using multiprocess collector for registry
 def make_metrics_app():
     registry = CollectorRegistry()
-    multiprocessing.MultiProcessCollector(registry)
+    multiprocess.MultiProcessCollector(registry)
     return make_asgi_app(registry=registry)
 
 
