@@ -10,7 +10,7 @@ app = FastAPI(debug=False)
 # Using multiprocess collector for registry
 def make_metrics_app():
     registry = CollectorRegistry()
-    multiprocess.MultiProcessCollector(registry)
+    multiprocessing.MultiProcessCollector(registry)
     return make_asgi_app(registry=registry)
 
 
