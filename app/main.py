@@ -1,7 +1,9 @@
 import logging
 
-from prometheus_client import Counter, make_asgi_app
+from prometheus_client import make_asgi_app
 from fastapi import FastAPI, Request
+
+from .metrics import request_metric
 
 # Create app
 app = FastAPI(debug=False)
@@ -14,7 +16,7 @@ app.mount("/metrics", metrics_app)
 def healthcheck():
   return {"status": "Happy :)"}
 
-request_metric = Counter("metrictool_request", ["ip_address", "caller"])
+
 
 @app.post("/metric-instance")
 async def create_metric(request: Request):
@@ -22,6 +24,4 @@ async def create_metric(request: Request):
 
   logging.info(body)
 
-  request_metric.labels(**body)
-
-  request_metric.increment()
+  request_metric.labels(**body).inc()
